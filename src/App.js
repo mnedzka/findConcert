@@ -1,37 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import Headings from './components/headings';
+import Form from './components/form';
+import Concerts from './components/concerts';
+
+const APIKEY = `?app_id=55f82634df0fb71ebb5560ae732708f6`; 
 
 class App extends Component {
 
   constructor(props) {
     super(props); 
     this.state = {
-      isLoading = true,
+      startDate: moment(),
+      isLoading: true,
       contacts: []
-    }    
+    }   
   }
-
-  let APIKEY = ``;
 
   componentDidMount() {
     this.fetchData();
   }
 
-  fetchData() {
-    fetch()
+  fetchData() {    
+    fetch(`https://rest.bandsintown.com/artists/shakira/events/${APIKEY}`)
+    .then(response => response.json())
+    .then(parsedJSON => console.log(parsedJSON))
+    .catch(err => console.log('parsing failed', err))
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+      <Headings />
+
+      <DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange}
+      />
+      <Form />
+      <Concerts />
       </div>
     );
   }
