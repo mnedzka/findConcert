@@ -5,8 +5,7 @@ import '../App.css';
 const Headings = () => {
     return (
         <div className="headings">
-            <h1>Find a concert today!</h1>
-            <p>Pick a date and search! :)</p>
+            <h1 className="title is-2">Find a concert today!</h1>
         </div>
     );
 };
