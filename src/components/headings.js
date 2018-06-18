@@ -1,10 +1,12 @@
 import React from 'react';
 
+import '../App.css';
+
 const Headings = () => {
     return (
-        <div>
+        <div className="headings">
             <h1>Find a concert today!</h1>
-            <p>Grab a date and search! :)</p>
+            <p>Pick a date and search! :)</p>
         </div>
     );
 };
