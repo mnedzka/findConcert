@@ -18,15 +18,7 @@ class App extends Component {
     startDate: null,
     endDate: null,
     error: false,
-    info: {
-      artist: null,
-      url: null,
-      city: null,
-      country: null,
-      concerts: null,
-      id: null,
-      display: false,
-    }
+    info: [],
   }
 
   formatDate = (date) => {
@@ -47,17 +39,6 @@ class App extends Component {
     });
   }
 
-  showState = () => {
-    console.log(this.state.startDate);
-    console.log(this.state.endDate);
-    console.log(this.state.info.concerts);
-    console.log(this.state.info.artist);
-    console.log(this.state.info.city);
-    console.log(this.state.info.country);
-    console.log(this.state.info.url);
-    console.log(this.state.info.id);
-  }
-
   fetchData = (e) => {
     e.preventDefault();  
     if(this.state.startDate && this.state.endDate) {
@@ -66,18 +47,19 @@ class App extends Component {
       const endDate = this.state.endDate;
       fetch(`${endpoint}${artist}/events/${APIKEY}&date=${startDate}%2C${endDate}`)
       .then(response => response.json())
-      // .then(parsedJSON => console.log(parsedJSON))
       .then(data => {
         const newState = Object.assign({}, this.state);
-        newState.info.artist = artist;
-        newState.info.concerts = data.map(item => item.description );
-        newState.info.url = data.map(item => item.url );
-        newState.info.city = data.map(item => item.venue.city );
-        newState.info.country = data.map(item => item.venue.country );
-        newState.info.id = data.map(item => item.id );
-        newState.info.display = true;
-        newState.error = false;
-        console.log(newState);
+        newState.info = data.map(item => ( {
+          artist: artist,
+          concert: item.description ,
+          url: item.url,
+          city: item.venue.city,
+          country: item.venue.country,
+          date: item.datetime,
+          id: item.id,
+        }) )
+        newState.display = true;
+        newState.error = false; 
         this.setState(newState);
       })
       .catch(err => console.log('parsing failed', err))
@@ -107,11 +89,10 @@ class App extends Component {
                       />            
                       <div className="has-text-centered">
                         <Error error={this.state.error} />
-                        <Concerts apiData={this.state.info} />
-                      {/* <button onClick={this.showState}>show state</button> */}
                       </div>
                     </div>
                 </div>
+                <Concerts display={this.state.display} apiData={this.state.info} />
             </div>
         </div>       
     </section>
