@@ -2,7 +2,7 @@
   "name": "find-concert",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mnedzka.github.io/find-concert/",
+  "homepage": "https://mnedzka.github.io/findConcert/",
   "dependencies": {
     "ajv": "^6.5.1",
     "bulma": "^0.7.1",

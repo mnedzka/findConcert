@@ -2,7 +2,6 @@ import React from 'react';
 import ListItem from './listItems';
 
 const Concerts = (props) => {
-    console.log(props.apiData);
 
      const show = (display, data) => {
          if(display) {
