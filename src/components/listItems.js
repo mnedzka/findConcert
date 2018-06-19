@@ -13,7 +13,9 @@ const ListItem = (props) => {
                         <span className="city">{item.city}</span>
                         <span className="country">{item.country}</span>
                     </div>
-                    <a href={item.url} className="link-info" target="_blank">Check the event!</a>
+                    <button className="button button-event is-small is-danger">
+                        <a href={item.url} className="link-info" target="_blank">Check the event!</a>
+                    </button>
                 </li>
             ))} 
         </ul>          
