@@ -42,7 +42,7 @@ class App extends Component {
   fetchData = (e) => {
     e.preventDefault();  
     if(this.state.startDate && this.state.endDate) {
-      const artist = e.target.elements.artist.value;  
+      const artist = (e.target.elements.artist.value).trim();  
       const startDate = this.state.startDate;
       const endDate = this.state.endDate;
       fetch(`${endpoint}${artist}/events/${APIKEY}&date=${startDate}%2C${endDate}`)
